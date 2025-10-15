@@ -1,8 +1,12 @@
 # Customer Churn Prediction with Real-Time Monitoring
+
 ## Overview
 
-An end-to-end **Machine Learning** project that predicts telecom customer churn using FastAPI, XGBoost, Streamlit, and real-time monitoring via Prometheus and Grafana.
-Built to demonstrate a production-ready MLOps workflow — from model serving to live performance tracking.
+An end-to-end **Machine Learning** project that predicts telecom customer churn using FastAPI, XGBoost, and Streamlit, with real-time monitoring powered by Prometheus and Grafana.
+
+Churn prediction identifies customers who are likely to stop using a company’s service which is a key challenge in industries like telecom, streaming platforms (e.g., Netflix), or subscription businesses (e.g., Amazon Prime). By predicting who might leave, companies can proactively offer personalized discounts, improved support, or loyalty rewards to retain them.
+
+This project demonstrates a production-ready MLOps workflow, including model serving, containerized deployment, and live performance tracking, bridging the gap between machine learning models and real-world business impact.
 
 ## Tech Stack
 
@@ -10,7 +14,6 @@ Backend: FastAPI, Python, XGBoost, Pandas
 Frontend: Streamlit
 Monitoring: Prometheus, Grafana
 Containerization: Docker & Docker-Compose
-Deployment: Render (Free Tier)
 
 ## Architecture
 
