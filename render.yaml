@@ -1,7 +1,7 @@
 services:
   - type: web
-    name: churn-api
+    name: churn-streamlit
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port 10000"
+    startCommand: "streamlit run Streamlit_app.py --server.port=10000 --server.address=0.0.0.0"
     plan: free
