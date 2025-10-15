@@ -109,3 +109,9 @@ Short-tenure customers are more likely to churn.
 Month-to-month contracts and higher charges correlate with churn.
 
 Auto-payment and long-term contracts reduce churn rates.
+
+# License
+
+This project is licensed under the MIT License — you’re free to use, modify, and distribute it with proper attribution.
+
+Copyright © 2025 Narendra Kumar Poluka
