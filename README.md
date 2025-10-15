@@ -1,90 +1,69 @@
-Customer Churn Prediction with Real-Time Monitoring
-Overview
+# Customer Churn Prediction with Real-Time Monitoring
+## Overview
 
-Customer churn refers to the rate at which customers stop doing business with a company.
-High churn rates often signal dissatisfaction, pricing issues, or strong competition.
-Accurately predicting which customers are likely to leave helps companies take proactive steps—like offering incentives, improving service quality, or redesigning plans—to retain valuable clients.
+An end-to-end **Machine Learning** project that predicts telecom customer churn using FastAPI, XGBoost, Streamlit, and real-time monitoring via Prometheus and Grafana.
+Built to demonstrate a production-ready MLOps workflow — from model serving to live performance tracking.
 
-This project builds an end-to-end churn prediction system powered by FastAPI for backend inference, Streamlit for visualization, and real-time monitoring using Prometheus and Grafana.
+## Tech Stack
 
-Deployment
+Backend: FastAPI, Python, XGBoost, Pandas
+Frontend: Streamlit
+Monitoring: Prometheus, Grafana
+Containerization: Docker & Docker-Compose
+Deployment: Render (Free Tier)
 
-Deployed as an interactive web application with monitoring support.
+## Architecture
 
-Streamlit App: localhost:8501
+FastAPI → model inference endpoint
 
-FastAPI Docs: localhost:8000/docs
+Streamlit → user-friendly interface
 
-Prometheus: localhost:9090
+Prometheus → collects API metrics
 
-Grafana Dashboard: localhost:3000
+Grafana → visualizes churn data and system latency
 
-(You can deploy the API to Render — free cloud hosting for demo purposes.)
+# Dataset
 
-Objective
-
-Build a machine learning model to predict the probability of customer churn.
-
-Integrate the trained model into a real-time FastAPI service.
-
-Create a Streamlit UI for easy input and visualization.
-
-Add Prometheus + Grafana to track API latency, inference speed, and churn distribution in real time.
-
-Demonstrate full MLOps-style observability for production-ready ML applications.
-
-Dataset
-
-The dataset is derived from the IBM Telco Customer Churn Dataset
+The dataset used in this project comes from the IBM Telco Customer Churn dataset
+, which is also available on Kaggle
 .
-It includes customer demographics, account information, services subscribed, and churn history.
+It contains information about telecom customers, including:
 
-Key categories:
+Demographics: gender, age, marital status, and dependents
 
-Demographics: gender, senior citizen, partner, dependents
+Account Details: contract type, billing method, payment type, monthly charges, and total charges
 
-Account: tenure, contract type, payment method, paperless billing
+Service Usage: phone services, internet type, online security, backup, device protection, tech support, and streaming services
 
-Services: phone, internet, tech support, online backup, streaming services
+Churn Indicator: whether the customer discontinued the service in the previous month
 
-Target: Churn (Yes / No)
+## How it was used
 
-Exploratory Data Analysis (EDA)
+The dataset was cleaned and preprocessed to handle missing values and encode categorical variables. Feature importance was analyzed using XGBoost, and the top 10 predictors (such as tenure, monthly charges, and contract type) were selected for model training. The final model was deployed via FastAPI for real-time churn prediction and visualized through Streamlit and Grafana dashboards.
 
-Correlation of features with churn
+## Features
 
+Real-time churn prediction API (FastAPI)
 
-Feature Importance from XGBoost
+Streamlit dashboard for live user input
 
+Prometheus metrics for http_requests_total
 
-Model Used
+Grafana dashboards Pie churn stats, Total Number of requests, Prometheus scrape duration
 
-Logistic Regression
+Docker-based setup for full reproducibility
 
-Random Forest
+## Run Locally
+git clone https://github.com/Narendra1112/churn-prediction-api.git
+cd churn-prediction-api
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+streamlit run Streamlit_app.py
+docker-compose up -d   # for Prometheus & Grafana
 
-Gradient Boosting
+# API Example
 
-XGBoost (Final Model)
-
-After model comparison and tuning, XGBoost showed the best accuracy, precision, and recall.
-The final model was saved as xgb_churn_best.pkl for deployment.
-
-Architecture
-
-FastAPI serves as the inference API.
-
-Streamlit provides a web interface for predictions.
-
-Prometheus collects system and prediction metrics.
-
-Grafana visualizes metrics like request latency and churn distribution.
-
-Docker Compose orchestrates all services for easy setup.
-
-API Example
-
-Input:
+## Input
 
 {
   "MonthlyCharges": 75.0,
@@ -99,90 +78,31 @@ Input:
 }
 
 
-Output:
+## Output
 
 {
   "prediction": "Customer is likely to churn",
   "churn_probability": 0.519
 }
 
-Monitoring with Prometheus and Grafana
+## Monitoring Views
 
-Prometheus collects metrics from FastAPI endpoints like:
+FastAPI Docs: http://localhost:8000/docs
+![image](https://github.com/Narendra1112/churn-prediction-api/blob/main/assets/Fastapi_docs.png)
 
-Request count
+Streamlit UI: http://localhost:8501
+![image](https://github.com/Narendra1112/churn-prediction-api/blob/main/assets/Streamlit_UI.png)
 
-Inference latency
+Prometheus: http://localhost:9090
+![image](https://github.com/Narendra1112/churn-prediction-api/blob/main/assets/Prometheus.png)
 
-Churn prediction labels (Yes / No)
-
-Grafana Dashboard visualizes:
-
-Request latency over time
-
-Average inference time per request
-
-Gauge chart for live churn probability
-
-Pie chart showing churn vs no-churn ratio
-
-Project Structure
-CHURN_PREDICTION_API/
-│
-├── app/
-│   └── main.py
-│
-├── src/
-│   ├── xgb_churn_best.pkl
-│   ├── Telecom_processed.csv
-│   └── Churn_Prediction.ipynb
-│
-├── obs/
-│   └── prometheus.yml
-│
-├── assets/
-│   ├── FastAPI_docs.png
-│   ├── Streamlit_UI.png
-│   ├── Prometheus.png
-│   └── Grafana_dashboard.png
-│
-├── Streamlit_app.py
-├── docker-compose.yml
-├── Dockerfile
-├── render.yaml
-├── requirements.txt
-└── README.md
-
-How to Run Locally
-
-Clone the repository:
-
-git clone https://github.com/Narendra1112/churn-prediction-api.git
-cd churn-prediction-api
+Grafana: http://localhost:3000
+![image](https://github.com/Narendra1112/churn-prediction-api/blob/main/assets/Grafana_dashboard.png)
 
 
-Install dependencies:
+# Deployment on Render
 
-pip install -r requirements.txt
-
-
-Start the FastAPI server:
-
-uvicorn app.main:app --reload
-
-
-Launch Streamlit UI:
-
-streamlit run Streamlit_app.py
-
-
-Start monitoring tools:
-
-docker-compose up -d
-
-Deployment on Render
-
-Use the included render.yaml file for one-click deployment.
+## Use render.yaml:
 
 services:
   - type: web
@@ -192,30 +112,10 @@ services:
     startCommand: "uvicorn app.main:app --host 0.0.0.0 --port 10000"
     plan: free
 
-Model Insights
+## Key Insights
 
-Customers with shorter tenure and higher monthly charges are more likely to churn.
+Short-tenure customers are more likely to churn.
 
-Contracts with month-to-month plans have higher churn rates.
+Month-to-month contracts and higher charges correlate with churn.
 
-Users with fiber optic internet and electronic check payment show increased churn tendency.
-
-Long-term contracts and automatic payments reduce churn risk.
-
-Future Enhancements
-
-Integrate real customer data pipelines.
-
-Extend metrics for model drift and data quality.
-
-Add automated retraining and deployment workflows using CI/CD.
-
-Host Grafana dashboards online for public demo access.
-
-Live Demo
-
-FastAPI Docs: https://churn-api.onrender.com/docs
-
-API Endpoint: https://churn-api.onrender.com
-
-Streamlit App: Coming Soon
+Auto-payment and long-term contracts reduce churn rates.
