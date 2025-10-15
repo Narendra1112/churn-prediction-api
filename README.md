@@ -24,8 +24,8 @@ Grafana → visualizes churn data and system latency
 
 # Dataset
 
-The dataset used in this project comes from the IBM Telco Customer Churn dataset
-, which is also available on Kaggle
+The dataset used in this project comes from the [Kaggle](https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset)
+, which is also available on [IBM sample data](https://www.ibm.com/docs/en/cognos-analytics/11.1.0?)
 .
 It contains information about telecom customers, including:
 
