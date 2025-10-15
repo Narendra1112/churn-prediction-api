@@ -25,8 +25,7 @@ Grafana → visualizes churn data and system latency
 # Dataset
 
 The dataset used in this project comes from the [Kaggle](https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset)
-, which is also available on [IBM sample data](https://www.ibm.com/docs/en/cognos-analytics/11.1.0?)
-.
+, which is also available on [IBM sample data](https://www.ibm.com/docs/en/cognos-analytics/11.1.0?).
 It contains information about telecom customers, including:
 
 Demographics: gender, age, marital status, and dependents
@@ -99,18 +98,6 @@ Prometheus: http://localhost:9090
 Grafana: http://localhost:3000
 ![image](https://github.com/Narendra1112/churn-prediction-api/blob/main/assets/Grafana_dashboard.png)
 
-
-# Deployment on Render
-
-## Use render.yaml:
-
-services:
-  - type: web
-    name: churn-api
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port 10000"
-    plan: free
 
 ## Key Insights
 
