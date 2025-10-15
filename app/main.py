@@ -7,31 +7,25 @@ import joblib
 from prometheus_fastapi_instrumentator import Instrumentator
 from prometheus_client import Counter
 
-# ----------------------------------------------------
-# 🚀 App Initialization
-# ----------------------------------------------------
+
 app = FastAPI(
     title="Customer Churn Prediction API (Top 10 Features)",
     description="Predict customer churn using top 10 most important features and XGBoost.",
     version="2.0.0"
 )
 
-# ----------------------------------------------------
-# 🧩 Prometheus Instrumentation
-# ----------------------------------------------------
+
 instrumentator = Instrumentator().instrument(app)
 instrumentator.expose(app)
 
-# ✅ Custom Prometheus Counter (for Pie Chart)
+
 PREDICTED_LABELS = Counter(
     "predicted_labels_total",
     "Count of churn predictions by label",
     ["label"]
 )
 
-# ----------------------------------------------------
-# 🧠 Model + Columns
-# ----------------------------------------------------
+
 model = joblib.load("src/xgb_churn_best.pkl")
 
 model_columns = [
@@ -45,9 +39,7 @@ model_columns = [
     'PaymentMethod_Electronic_check', 'PaymentMethod_Mailed_check'
 ]
 
-# ----------------------------------------------------
-# 🧾 Input Schema (Top 10 Features)
-# ----------------------------------------------------
+
 class CustomerInput(BaseModel):
     MonthlyCharges: float
     Tenure: float
@@ -59,9 +51,7 @@ class CustomerInput(BaseModel):
     MultipleLines: str             # "Yes" / "No"
     OnlineBackup: str              # "Yes" / "No"
 
-# ----------------------------------------------------
-# 🧮 Encoding Function
-# ----------------------------------------------------
+
 def encode_input(user_data: dict):
     df = pd.DataFrame([user_data])
 
@@ -94,16 +84,14 @@ def encode_input(user_data: dict):
     df = df[model_columns]
     return df
 
-# ----------------------------------------------------
-# 🔮 Prediction Endpoint
-# ----------------------------------------------------
+
 @app.post("/predict")
 def predict_churn(data: CustomerInput):
     df = encode_input(data.dict())
     prob = model.predict_proba(df)[0][1]
     prediction = "Yes" if prob >= 0.5 else "No"
 
-    # ✅ Record prediction in Prometheus counter
+    
     PREDICTED_LABELS.labels(label=prediction).inc()
 
     return {
@@ -114,9 +102,7 @@ def predict_churn(data: CustomerInput):
         "churn_probability": round(float(prob), 3)
     }
 
-# ----------------------------------------------------
-# 💚 Health Check
-# ----------------------------------------------------
+
 @app.get("/health")
 def health_check():
     return {"status": "OK", "message": "Churn API is running Good"}
