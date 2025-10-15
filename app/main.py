@@ -9,7 +9,7 @@ from prometheus_client import Counter
 
 
 app = FastAPI(
-    title="Customer Churn Prediction API (Top 10 Features)",
+    title="Customer Churn Prediction API",
     description="Predict customer churn using top 10 most important features and XGBoost.",
     version="2.0.0"
 )
