@@ -30,7 +30,7 @@ multi_lines = col4.selectbox("Multiple Lines", ["Yes", "No"])
 backup = col5.selectbox("Online Backup", ["Yes", "No"])
 
 
-if st.button("🔮 Predict Churn"):
+if st.button(" Predict Churn"):
     data = {
         "MonthlyCharges": monthly_charges,
         "Tenure": tenure,
@@ -71,5 +71,5 @@ if st.button("🔮 Predict Churn"):
 
 st.markdown("---")
 st.markdown(
-    "Developed with  using **FastAPI**, **Streamlit**, **XGBoost**, and **Prometheus**."
+    "### Developed with  using **FastAPI**, **Streamlit**, and **XGBoost**."
 )

@@ -1,5 +1,18 @@
 # Customer Churn Prediction with Real-Time Monitoring
 
+
+##  Live Demo
+
+**Deployed Application:** [Try it here on Render](https://churn-prediction-api-xk5q.onrender.com/)  
+This live web app demonstrates real-time churn prediction powered by **FastAPI** and **Streamlit**.  
+Users can input customer details, view churn probabilities instantly, and observe backend metrics integrated via Prometheus and Grafana.
+
+![Streamlit App Demo](https://github.com/Narendra1112/churn-prediction-api/blob/main/assets/Streamlit_UI.png)
+
+
+
+
+
 ## Overview
 
 An end-to-end **Machine Learning** project that predicts telecom customer churn using FastAPI, XGBoost, and Streamlit, with real-time monitoring powered by Prometheus and Grafana.
@@ -55,13 +68,15 @@ Grafana dashboards Pie churn stats, Total Number of requests, Prometheus scrape 
 
 Docker-based setup for full reproducibility
 
-## Run Locally
+##  Run Locally
+
 git clone https://github.com/Narendra1112/churn-prediction-api.git
 cd churn-prediction-api
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 streamlit run Streamlit_app.py
-docker-compose up -d   # for Prometheus & Grafana
+docker-compose up -d
+
 
 # API Example
 
