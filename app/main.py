@@ -44,12 +44,12 @@ class CustomerInput(BaseModel):
     MonthlyCharges: float
     Tenure: float
     TotalCharges: float
-    Contract: str                  # "Month-to-month", "One year", "Two year"
-    InternetService: str           # "DSL", "Fiber optic", "No"
-    PaymentMethod: str             # "Electronic check", "Mailed check", "Credit card (automatic)"
-    PaperlessBilling: str          # "Yes" / "No"
-    MultipleLines: str             # "Yes" / "No"
-    OnlineBackup: str              # "Yes" / "No"
+    Contract: str                  
+    InternetService: str           
+    PaymentMethod: str             
+    PaperlessBilling: str          
+    MultipleLines: str             
+    OnlineBackup: str              
 
 
 def encode_input(user_data: dict):
