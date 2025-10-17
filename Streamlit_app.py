@@ -1,9 +1,13 @@
 import streamlit as st
 import requests
+import os
 
 st.set_page_config(page_title="Churn Prediction", layout="centered")
 st.title("Customer Churn Prediction")
-st.write("Enter details below to predict churn probability")
+st.write("Enter customer details to predict churn probability using the trained model.")
+
+# FastAPI endpoint (Render backend)
+API_URL = os.environ.get("API_URL", "https://churn-api.onrender.com/predict")
 
 # --- Inputs ---
 col1, col2 = st.columns(2)
@@ -21,8 +25,8 @@ paperless = col3.selectbox("Paperless Billing", ["Yes", "No"])
 multi_lines = col4.selectbox("Multiple Lines", ["Yes", "No"])
 backup = col5.selectbox("Online Backup", ["Yes", "No"])
 
-# --- Predict Button ---
-if st.button(" Predict Churn"):
+
+if st.button("🔮 Predict Churn"):
     data = {
         "MonthlyCharges": monthly_charges,
         "Tenure": tenure,
@@ -35,11 +39,13 @@ if st.button(" Predict Churn"):
         "OnlineBackup": backup
     }
 
-    response = requests.post("http://127.0.0.1:8000/predict", json=data)
-
-    if response.status_code == 200:
+    try:
+        response = requests.post(API_URL, json=data, timeout=10)
+        response.raise_for_status()
         result = response.json()
-        st.subheader(f"Prediction: {result['prediction']}")
-        st.subheader(f"Churn Probability: {result['churn_probability'] * 100:.2f}%")
-    else:
-        st.error("Error: Could not get prediction. Check if FastAPI is running.")
+
+        st.success(result["prediction"])
+        st.metric(label="Churn Probability", value=f"{result['churn_probability'] * 100:.2f}%")
+
+    except requests.exceptions.RequestException as e:
+        st.error(f" Could not connect to the prediction API.\n\nDetails: {e}")
