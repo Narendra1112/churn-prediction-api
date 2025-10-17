@@ -40,7 +40,7 @@ if st.button("🔮 Predict Churn"):
     }
 
     try:
-        response = requests.post(API_URL, json=data, timeout=10)
+        response = requests.post(API_URL, json=data, timeout=50)
         response.raise_for_status()
         result = response.json()
 
