@@ -4,7 +4,7 @@ import os
 
 
 st.set_page_config(page_title="Customer Churn Prediction", layout="centered")
-st.title(" Customer Churn Prediction Dashboard")
+st.title(" Customer Churn Prediction ")
 st.write(
     "This interactive dashboard predicts customer churn probability using a trained **XGBoost model** "
     "served via FastAPI, with real-time insights displayed below."
