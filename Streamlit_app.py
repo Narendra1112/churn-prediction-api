@@ -49,8 +49,17 @@ if st.button("🔮 Predict Churn"):
             response.raise_for_status()
             result = response.json()
 
-            st.success(result["prediction"])
-            st.metric(label="Churn Probability", value=f"{result['churn_probability'] * 100:.2f}%")
+            st.markdown(
+                f"###  **Prediction:** {result['prediction']}",
+                unsafe_allow_html=True
+                )
+
+            st.markdown(
+                f"###  **Churn Probability:** "
+                f"<span style='font-size:22px; font-weight:bold; color:#FF4B4B;'>"
+                f"{result['churn_probability'] * 100:.2f}%</span>",
+                unsafe_allow_html=True
+            )
 
         except requests.exceptions.ConnectionError:
             st.error(" Could not connect to the FastAPI service. Make sure it’s running.")
@@ -62,5 +71,5 @@ if st.button("🔮 Predict Churn"):
 
 st.markdown("---")
 st.markdown(
-    "Developed with ❤️ using **FastAPI**, **Streamlit**, **XGBoost**, and **Prometheus**."
+    "Developed with  using **FastAPI**, **Streamlit**, **XGBoost**, and **Prometheus**."
 )
