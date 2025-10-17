@@ -1,17 +1,14 @@
-# Use lightweight Python base
 FROM python:3.10-slim
 
-# Set working directory
 WORKDIR /app
 
-# Copy all project files
-COPY . .
+COPY . /app
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# Expose port for Render
 EXPOSE 10000
+EXPOSE 8000
 
-# Start FastAPI app
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "10000"]
+# Start both FastAPI and Streamlit
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port 8000 & streamlit run Streamlit_app.py --server.port=10000 --server.address=0.0.0.0"]
