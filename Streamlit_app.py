@@ -7,7 +7,7 @@ st.title("Customer Churn Prediction")
 st.write("Enter customer details to predict churn probability using the trained model.")
 
 # FastAPI endpoint (Render backend)
-API_URL = os.environ.get("API_URL", "https://churn-api.onrender.com/predict")
+API_URL = os.environ.get("API_URL", "https://churn-prediction-api-gdae.onrender.com/predict")
 
 # --- Inputs ---
 col1, col2 = st.columns(2)
